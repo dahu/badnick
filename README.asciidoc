@@ -1,0 +1,13 @@
+badnick
+-------
+
+__color disliked nicks to dissuade communication with reprobates__
+
+TIP: If you like badnick and want to share the W00t!, I'm grateful for
+https://www.gittip.com/bairuidahu/[tips] or
+http://of-vim-and-vigor.blogspot.com/[beverages].
+
+.Options:
+
+++/set plugins.var.perl.badnick.bad_nicks some,nasty,trolls++
+++/set plugins.var.perl.badnick.bad_color red++
