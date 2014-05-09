@@ -9,5 +9,5 @@ http://of-vim-and-vigor.blogspot.com/[beverages].
 
 .Options:
 
-++/set plugins.var.perl.badnick.bad_nicks some,nasty,trolls++
-++/set plugins.var.perl.badnick.bad_color red++
+* ++/set plugins.var.perl.badnick.bad_nicks some,nasty,trolls++
+* ++/set plugins.var.perl.badnick.bad_color red++

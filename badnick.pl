@@ -1,4 +1,4 @@
-# Copyright (c) 2010 by Barry Arthur <barry.arthur@gmail.com>:
+# Copyright (c) 2014 by Barry Arthur <barry.arthur@gmail.com>:
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 # Color disliked nicks to dissuade communication with reprobates.
 #
 # History:
+# 2014-05-10, bairui <barry.arthur@gmail.com>:
+#     version 0.2: fixed uninitialized script error
 # 2014-05-04, bairui <barry.arthur@gmail.com>:
 #     version 0.1: initial release
 #
@@ -26,11 +28,16 @@ use strict;
 
 my $version = "0.1";
 
+weechat::register("badnick", "bairui <barry.arthur\@gmail.com>", $version,
+                  "GPL3", "Show bad nicks in red", "", "");
+
+weechat::hook_modifier('250|input_text_display', 'colorize_input_cb', '');
+
 # default values in setup file (~/.weechat/plugins.conf)
 my %default_badnick = ('bad_color' => "red", 'bad_nicks' => "");
 
 foreach my $key (keys %default_badnick) {
-  weechat::config_set_plugin($key, $default_badnick{$key}) if (weechat::config_get_plugin($key) eq "");
+  weechat::config_set_plugin($key, $default_badnick{$key}) unless weechat::config_is_set_plugin($key);
 }
 
 # colorize_input_cb(data, modifier, modifier_data, line)
@@ -45,7 +52,3 @@ sub colorize_input_cb {
   $line;
 }
 
-weechat::register("badnick", "bairui <barry.arthur\@gmail.com>", $version,
-                  "GPL3", "Show bad nicks in red", "", "");
-
-weechat::hook_modifier('250|input_text_display', 'colorize_input_cb', '')
