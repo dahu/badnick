@@ -66,6 +66,7 @@ sub badnick_cb {
   my $args       = $msg->{arguments};
 
   $args          =~ s/^$msg->{channel}/$msg->{channel} :<naughty_marker>/;
+  $args          =~ s/(<naughty_marker>).:(\x01ACTION)/$2 $1/;
   $new_string    =~ s/\Q$msg->{arguments}\E$/$args/;
   return (grep {$_ eq $msg->{nick}} @bad_nicks) ? $new_string : $string;
   # return $new_string if grep {$_ eq $msg->{nick}} @bad_nicks;
@@ -77,6 +78,6 @@ sub colorize_print_cb {
   my $reset     = weechat::color('reset');
   my $line      = $_[3];
 
-  $line =~ s/<naughty_marker>/${bad_color}badnick${reset}/;
+  $line =~ s/<naughty_marker>(( ):?)?/${bad_color}badnick${reset}$2/;
   $line;
 }
